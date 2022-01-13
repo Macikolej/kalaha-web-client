@@ -1,5 +1,5 @@
 import React from "react";
 
-export const MainPage = () => {
+export const GameScreen = () => {
   return <div></div>;
 };

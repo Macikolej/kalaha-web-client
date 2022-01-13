@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { MainPage } from "features/MainPage";
+import { MainRouter } from "features/MainRouter";
 
 ReactDOM.render(
   <React.StrictMode>
-    <MainPage />
+    <MainRouter />
   </React.StrictMode>,
   document.getElementById("root")
 );
