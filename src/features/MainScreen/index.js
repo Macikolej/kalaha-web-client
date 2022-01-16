@@ -8,10 +8,10 @@ export const MainScreen = ({ playerId, setGame }) => {
   const [gameToJoinId, setGameToJoinId] = useState("");
 
   const onCreate = () => {
-    console.log(playerId);
     apiPostCreate(playerId)
       .then((res) => {
         setGame(res.game);
+        //localStorage.setItem("game", JSON.stringify(res.game));
       })
       .catch((err) => {
         console.log(err); // TODO: HANDLE ERRORS
@@ -22,6 +22,7 @@ export const MainScreen = ({ playerId, setGame }) => {
     apiPostSearch(playerId)
       .then((res) => {
         setGame(res.game);
+        //localStorage.setItem("game", JSON.stringify(res.game));
       })
       .catch((err) => {
         console.log(err); // TODO: HANDLE ERRORS
@@ -32,8 +33,8 @@ export const MainScreen = ({ playerId, setGame }) => {
     if (gameToJoinId) {
       apiPostJoin(playerId, gameToJoinId)
         .then((res) => {
-          console.log(res);
           setGame(res.game);
+          //localStorage.setItem("game", JSON.stringify(res.game));
         })
         .catch((err) => {
           console.log(err); // TODO: HANDLE ERRORS

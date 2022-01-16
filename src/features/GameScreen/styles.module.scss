@@ -25,6 +25,7 @@
 
 .mainContainer {
   display: flex;
+  flex-direction: column;
   height: 100%;
   flex: 1;
 }
@@ -45,5 +46,18 @@
   padding: 30px 30px 30px 30px;
   box-sizing: border-box;
   gap: 20px;
+  box-shadow: 2px 2px 2px red;
+}
+
+.gameBoardOnMove {
   box-shadow: 2px 2px 2px lime;
+}
+
+.gameIdText {
+  @include type-title;
+
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
 }

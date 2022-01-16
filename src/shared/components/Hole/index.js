@@ -2,9 +2,11 @@ import React from "react";
 
 import styles from "./styles.module.scss";
 
-export const Hole = ({ type, count }) => {
+export const Hole = ({ type, count, onClick }) => {
   return type === "normal" ? (
-    <div className={styles.hole}>{count}</div>
+    <button className={styles.hole} onClick={onClick}>
+      {count}
+    </button>
   ) : (
     <div className={styles.homeHole}>{count}</div>
   );

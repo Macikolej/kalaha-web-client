@@ -9,6 +9,9 @@ export const MainRouter = () => {
   const [playerId, setPlayerId] = useState("");
 
   useEffect(() => {
+    /*if (localStorage.getItem("game")) {
+      setGame(JSON.parse(localStorage.getItem("game")));
+    }*/
     if (!playerId) {
       apiPostSession()
         .then((res) => {
@@ -21,7 +24,7 @@ export const MainRouter = () => {
   }, [playerId]);
 
   return game ? (
-    <GameScreen game={game} playerId={playerId} />
+    <GameScreen game={game} playerId={playerId} setGame={setGame} />
   ) : playerId ? (
     <MainScreen setGame={setGame} playerId={playerId} />
   ) : (

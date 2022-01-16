@@ -3,6 +3,7 @@
 .hole {
   @include type-hole;
 
+  cursor: pointer;
   background-color: white;
   display: flex;
   align-items: center;
