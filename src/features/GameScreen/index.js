@@ -77,7 +77,6 @@ export class GameScreen extends Component {
     const { game, playerId, setGame } = this.props;
     apiPostGame(playerId, game.game_id)
       .then((res) => {
-        console.log(res);
         if (res.game) {
           setGame(res.game);
           localStorage.setItem("game", JSON.stringify(res.game));
@@ -132,7 +131,8 @@ export class GameScreen extends Component {
           )}
           <div
             className={cn(styles.gameBoard, {
-              [styles.gameBoardOnMove]: game.moves_next === playerId,
+              [styles.gameBoardOnMove]:
+                game.moves_next === playerId && game.result,
             })}
           >
             <Hole type="home" count={enemyHoles[enemyHoles.length - 1]} />
