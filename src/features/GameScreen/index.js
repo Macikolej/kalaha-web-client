@@ -56,7 +56,7 @@ export class GameScreen extends Component {
     if (
       game.in_progress &&
       game.state.player_holes[move] &&
-      game.state.moves_next === playerId
+      game.moves_next === playerId
     ) {
       apiPostMove(move, playerId, game.game_id)
         .then((res) => {
