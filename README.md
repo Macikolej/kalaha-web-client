@@ -15,15 +15,7 @@ things to do in the future:
 - add posibility to kick someone from the lobby (to solve: who can kick???)
 - get rid of double ternary operators (its ugly)
 - add default api handler (onStart onMove etc look quite similar)
-
-known issues:
-
-- user manually clearing localstorage can lead to ghost lobby
-- weird refreshing on server shutdown
-- fix weird bugs (with interval probably)
-
-potential fixes:
-
-- add creation timer for games and clear games after some time?
-- add timer for player since moving and clear players from games
-  that are not moving for a long time?
+- indication of turns switching
+- indication of where the move will end (on front and maybe from enemy too)
+- some sound maybe indicating your turn?
+- make game end if points > half ?
