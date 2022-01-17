@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { GameScreen } from "features/GameScreenClass";
+import { GameScreen } from "features/GameScreen";
 import { MainScreen } from "features/MainScreen";
 import { apiPostSession } from "utils/api.js";
 
