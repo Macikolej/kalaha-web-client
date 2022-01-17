@@ -24,8 +24,12 @@ export const apiPostStart = (playerId, gameId) =>
 export const apiPostSearch = (playerId) =>
   apiClient.post("search", { json: { player_id: playerId } }).json();
 
-export const apiPostCreate = (playerId) =>
-  apiClient.post("create", { json: { player_id: playerId } }).json();
+export const apiPostCreate = (numberOfStones, playerId) =>
+  apiClient
+    .post("create", {
+      json: { number_of_stones: parseInt(numberOfStones), player_id: playerId },
+    })
+    .json();
 
 export const apiPostJoin = (playerId, gameId) =>
   apiClient

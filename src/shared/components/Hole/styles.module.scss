@@ -3,7 +3,6 @@
 .hole {
   @include type-hole;
 
-  cursor: pointer;
   background-color: white;
   display: flex;
   align-items: center;
@@ -13,6 +12,7 @@
   box-sizing: border-box;
   border: 1px solid black;
   border-radius: 50%;
+  box-shadow: 2px 2px 2px black;
 }
 
 .homeHole {
@@ -27,4 +27,5 @@
   box-sizing: border-box;
   border: 1px solid black;
   border-radius: 50%;
+  box-shadow: 2px 2px 2px black;
 }

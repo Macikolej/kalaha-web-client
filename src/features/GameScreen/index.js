@@ -20,8 +20,12 @@ export const GameScreen = ({ game, playerId, setGame }) => {
     clearInterval(stateInterval);
     apiDeleteGame(playerId, game.game_id)
       .then((res) => {
-        setGame(res.game);
-        // localStorage.removeItem("game");
+        if (res.game) {
+          setGame(res.game);
+        } else {
+          setGame(null);
+        }
+        localStorage.removeItem("game");
       })
       .catch((err) => {
         console.log(err); // TODO: HANDLE ERRORS
@@ -32,8 +36,12 @@ export const GameScreen = ({ game, playerId, setGame }) => {
     if (Object.keys(game.players).length === 2) {
       apiPostStart(playerId, game.game_id)
         .then((res) => {
-          setGame(res.game);
-          // localStorage.setItem("game", JSON.stringify(res.game));
+          if (res.game) {
+            setGame(res.game);
+          } else {
+            setGame(null);
+          }
+          localStorage.setItem("game", JSON.stringify(res.game));
         })
         .catch((err) => {
           console.log(err); // TODO: HANDLE ERRORS
@@ -45,8 +53,12 @@ export const GameScreen = ({ game, playerId, setGame }) => {
     if (game.in_progress && playerHoles[move]) {
       apiPostMove(move, playerId, game.game_id)
         .then((res) => {
-          setGame(res.game);
-          // localStorage.setItem("game", JSON.stringify(res.game));
+          if (res.game) {
+            setGame(res.game);
+          } else {
+            setGame(null);
+          }
+          localStorage.setItem("game", JSON.stringify(res.game));
         })
         .catch((err) => {
           console.log(err); // TODO: HANDLE ERRORS
@@ -57,9 +69,12 @@ export const GameScreen = ({ game, playerId, setGame }) => {
   const getGame = () => {
     apiPostGame(playerId, game.game_id)
       .then((res) => {
-        console.log(res);
-        setGame(res.game);
-        // localStorage.setItem("game", JSON.stringify(res.game));
+        if (res.game) {
+          setGame(res.game);
+        } else {
+          setGame(null);
+        }
+        localStorage.setItem("game", JSON.stringify(res.game));
       })
       .catch((err) => {
         console.log(err); // TODO: HANDLE ERRORS
@@ -84,7 +99,21 @@ export const GameScreen = ({ game, playerId, setGame }) => {
         <MenuButton caption="Leave game" onClick={onLeave} />
       </div>
       <div className={styles.mainContainer}>
-        <div className={styles.gameIdText}>Numer gry: {game.game_id}</div>
+        <div className={styles.infoText}>Game id: {game.game_id}</div>
+        {game.result && (
+          <div
+            className={cn(styles.infoText, {
+              [styles.losingText]: game.result !== "draw",
+              [styles.winningText]: game.result === playerId,
+            })}
+          >
+            {game.result === "draw"
+              ? "It's a draw!"
+              : game.result === playerId
+              ? "You won!"
+              : "You lost!"}
+          </div>
+        )}
         <div
           className={cn(styles.gameBoard, {
             [styles.gameBoardOnMove]: game.moves_next === playerId,
@@ -101,6 +130,7 @@ export const GameScreen = ({ game, playerId, setGame }) => {
                   />
                   <Hole
                     type="normal"
+                    className={styles.playerHole}
                     count={playerHoles[i]}
                     onClick={() => onMove(i)}
                   />

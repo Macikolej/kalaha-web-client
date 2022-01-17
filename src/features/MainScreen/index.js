@@ -6,23 +6,36 @@ import { apiPostCreate, apiPostSearch, apiPostJoin } from "utils/api";
 
 export const MainScreen = ({ playerId, setGame }) => {
   const [gameToJoinId, setGameToJoinId] = useState("");
+  const [numberOfStones, setNumberOfStones] = useState(6);
 
   const onCreate = () => {
-    apiPostCreate(playerId)
-      .then((res) => {
-        setGame(res.game);
-        //localStorage.setItem("game", JSON.stringify(res.game));
-      })
-      .catch((err) => {
-        console.log(err); // TODO: HANDLE ERRORS
-      });
+    if (!isNaN(numberOfStones) && numberOfStones > 0 && numberOfStones <= 82) {
+      apiPostCreate(numberOfStones, playerId)
+        .then((res) => {
+          if (res.game) {
+            setGame(res.game);
+            localStorage.setItem("game", JSON.stringify(res.game));
+          } else {
+            setGame(null);
+          }
+        })
+        .catch((err) => {
+          console.log(err); // TODO: HANDLE ERRORS
+        });
+    } else {
+      // TODO: SHOW VALIDATION ERROR
+    }
   };
 
   const onSearch = () => {
     apiPostSearch(playerId)
       .then((res) => {
-        setGame(res.game);
-        //localStorage.setItem("game", JSON.stringify(res.game));
+        if (res.game) {
+          setGame(res.game);
+          localStorage.setItem("game", JSON.stringify(res.game));
+        } else {
+          setGame(null);
+        }
       })
       .catch((err) => {
         console.log(err); // TODO: HANDLE ERRORS
@@ -30,11 +43,15 @@ export const MainScreen = ({ playerId, setGame }) => {
   };
 
   const onJoin = () => {
-    if (gameToJoinId) {
+    if (!isNaN(parseInt(gameToJoinId))) {
       apiPostJoin(playerId, gameToJoinId)
         .then((res) => {
-          setGame(res.game);
-          //localStorage.setItem("game", JSON.stringify(res.game));
+          if (res.game) {
+            setGame(res.game);
+            localStorage.setItem("game", JSON.stringify(res.game));
+          } else {
+            setGame(null);
+          }
         })
         .catch((err) => {
           console.log(err); // TODO: HANDLE ERRORS
@@ -47,8 +64,9 @@ export const MainScreen = ({ playerId, setGame }) => {
       <div className={styles.menu}>
         <div className={styles.title}>kalaha</div>
         <div className={styles.buttonContainer}>
-          <div className={styles.joinContainer}>
+          <div className={styles.inputContainer}>
             <MenuButton onClick={onJoin} caption="Join specific game" />
+            <div className={styles.inputInfoText}>Game id:</div>
             <input
               className={styles.joinInput}
               value={gameToJoinId}
@@ -58,7 +76,18 @@ export const MainScreen = ({ playerId, setGame }) => {
             />
           </div>
           <MenuButton onClick={onSearch} caption="Join random game" />
-          <MenuButton onClick={onCreate} caption="Create game" />
+          <div className={styles.inputContainer}>
+            <MenuButton onClick={onCreate} caption="Create game" />
+            <div className={styles.inputInfoText}>Number of stones:</div>
+            <input
+              type="number"
+              className={styles.joinInput}
+              value={numberOfStones}
+              onChange={(e) => {
+                setNumberOfStones(e.target.value);
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>

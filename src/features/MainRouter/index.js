@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { GameScreen } from "features/GameScreen";
+import { GameScreen } from "features/GameScreenClass";
 import { MainScreen } from "features/MainScreen";
 import { apiPostSession } from "utils/api.js";
 
@@ -9,13 +9,18 @@ export const MainRouter = () => {
   const [playerId, setPlayerId] = useState("");
 
   useEffect(() => {
-    /*if (localStorage.getItem("game")) {
-      setGame(JSON.parse(localStorage.getItem("game")));
-    }*/
-    if (!playerId) {
+    if (localStorage.getItem("game") && localStorage.getItem("playerId")) {
+      const game = JSON.parse(localStorage.getItem("game"));
+      const playerId = JSON.parse(localStorage.getItem("playerId"));
+      setGame(game);
+      setPlayerId(playerId);
+    } else if (!playerId) {
       apiPostSession()
         .then((res) => {
-          setPlayerId(res.player_id);
+          if (res.player_id) {
+            setPlayerId(res.player_id);
+            localStorage.setItem("playerId", JSON.stringify(res.player_id));
+          }
         })
         .catch((err) => {
           console.log(err); // TODO: HANDLE ERRORS
@@ -28,6 +33,6 @@ export const MainRouter = () => {
   ) : playerId ? (
     <MainScreen setGame={setGame} playerId={playerId} />
   ) : (
-    <></>
+    <></> // TODO SERVER NETWORK ERROR SCREEN
   );
 };

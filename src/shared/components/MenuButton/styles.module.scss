@@ -12,10 +12,10 @@
   background-color: white;
   border-radius: 20px;
   box-shadow: 1px 1px 1px black;
-}
 
-.button:hover {
-  transition: 0.3s;
-  background-color: black;
-  color: white;
+  &:hover {
+    transition: 0.3s;
+    background-color: black;
+    color: white;
+  }
 }
