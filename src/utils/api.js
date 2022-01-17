@@ -1,7 +1,7 @@
 import ky from "ky";
 
 const apiClient = ky.create({
-  prefixUrl: "http://localhost:3001",
+  prefixUrl: "https://kalaha-server.herokuapp.com/",
 });
 
 export const apiPostGame = (playerId, gameId) =>
