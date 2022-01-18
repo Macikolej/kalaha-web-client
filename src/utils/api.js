@@ -21,13 +21,28 @@ export const apiPostStart = (playerId, gameId) =>
     .post("start", { json: { player_id: playerId, game_id: gameId } })
     .json();
 
+export const apiPostCreateBot = (numberOfStones, playerId) =>
+  apiClient
+    .post("create", {
+      json: {
+        number_of_stones: parseInt(numberOfStones),
+        player_id: playerId,
+        is_bot_game: true,
+      },
+    })
+    .json();
+
 export const apiPostSearch = (playerId) =>
   apiClient.post("search", { json: { player_id: playerId } }).json();
 
 export const apiPostCreate = (numberOfStones, playerId) =>
   apiClient
     .post("create", {
-      json: { number_of_stones: parseInt(numberOfStones), player_id: playerId },
+      json: {
+        number_of_stones: parseInt(numberOfStones),
+        player_id: playerId,
+        is_bot_game: false,
+      },
     })
     .json();
 

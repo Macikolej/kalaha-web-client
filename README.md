@@ -19,3 +19,5 @@ things to do in the future:
 - indication of where the move will end (on front and maybe from enemy too)
 - some sound maybe indicating your turn?
 - make game end if points > half ?
+- add bot gameplay with different amount of stones, different difficulties
+- tidy the bot code in backend (allow bigger depth)

@@ -105,9 +105,11 @@ export class GameScreen extends Component {
     return (
       <div className={styles.cGameScreen}>
         <div className={styles.sidebar}>
-          <div className={styles.playerCounter}>{`Players: ${
-            Object.keys(game.players).length
-          }/2`}</div>
+          {!game.is_bot_game && (
+            <div className={styles.playerCounter}>{`Players: ${
+              Object.keys(game.players).length
+            }/2`}</div>
+          )}
           {!game.in_progress && (
             <MenuButton
               caption={game.result ? "Restart game" : "Start game"}
