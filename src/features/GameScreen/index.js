@@ -106,11 +106,16 @@ export class GameScreen extends Component {
     return (
       <div className={styles.cGameScreen}>
         <div className={styles.sidebar}>
-          <div className={styles.playerCounter}>{`Players: ${
-            Object.keys(game.players).length
-          }/2`}</div>
+          {!game.is_bot_game && (
+            <div className={styles.playerCounter}>{`Players: ${
+              Object.keys(game.players).length
+            }/2`}</div>
+          )}
           {!game.in_progress && (
-            <MenuButton caption="Start game" onClick={this.onStart} />
+            <MenuButton
+              caption={game.result ? "Restart game" : "Start game"}
+              onClick={this.onStart}
+            />
           )}
           <MenuButton caption="Leave game" onClick={this.onLeave} />
         </div>
@@ -132,7 +137,8 @@ export class GameScreen extends Component {
           )}
           <div
             className={cn(styles.gameBoard, {
-              [styles.gameBoardOnMove]: game.moves_next === playerId,
+              [styles.gameBoardOnMove]:
+                game.moves_next === playerId && !game.result,
             })}
           >
             <Hole type="home" count={enemyHoles[enemyHoles.length - 1]} />

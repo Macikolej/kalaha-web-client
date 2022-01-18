@@ -2,7 +2,12 @@ import React, { useState } from "react";
 
 import styles from "./styles.module.scss";
 import { MenuButton } from "shared/components/MenuButton";
-import { apiPostCreate, apiPostSearch, apiPostJoin } from "utils/api";
+import {
+  apiPostCreate,
+  apiPostSearch,
+  apiPostJoin,
+  apiPostCreateBot,
+} from "utils/api";
 
 export const MainScreen = ({ playerId, setGame }) => {
   const [gameToJoinId, setGameToJoinId] = useState("");
@@ -59,11 +64,28 @@ export const MainScreen = ({ playerId, setGame }) => {
     }
   };
 
+  const onStartBot = () => {
+    apiPostCreateBot(6, playerId)
+      .then((res) => {
+        if (res.game) {
+          setGame(res.game);
+          localStorage.setItem("game", JSON.stringify(res.game));
+        } else {
+          setGame(null);
+        }
+      })
+      .catch((err) => {
+        console.log(err); // TODO: HANDLE ERRORS
+      });
+  };
+
   return (
     <div className={styles.cMainScreen}>
       <div className={styles.menu}>
         <div className={styles.title}>kalaha</div>
+        <div className={styles.inputContainer}></div>
         <div className={styles.buttonContainer}>
+          <MenuButton onClick={onStartBot} caption="Play with bot" />
           <div className={styles.inputContainer}>
             <MenuButton onClick={onJoin} caption="Join specific game" />
             <div className={styles.inputInfoText}>Game id:</div>
@@ -75,7 +97,9 @@ export const MainScreen = ({ playerId, setGame }) => {
               }}
             />
           </div>
-          <MenuButton onClick={onSearch} caption="Join random game" />
+          <div className={styles.middleContainer}>
+            <MenuButton onClick={onSearch} caption="Join random game" />
+          </div>
           <div className={styles.inputContainer}>
             <MenuButton onClick={onCreate} caption="Create game" />
             <div className={styles.inputInfoText}>Number of stones:</div>
