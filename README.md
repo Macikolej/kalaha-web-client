@@ -22,3 +22,5 @@ things to do in the future:
 - add bot gameplay with different amount of stones, different difficulties
 - tidy the bot code in backend (allow bigger depth)
 - add some kind of loading state
+- add chat ?
+- add responsivity
